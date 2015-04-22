@@ -5,6 +5,10 @@ namespace Patterns
 
 	public class DateTimeRange
 	{
+		// todo : instead of null, use DateTime.MinValue and DateTime.MaxValue
+		// todo : instead of DateTime? introduce RangeBoundary that will hold DateTime and Open/Close to cover open, semiopen and closed ranges
+		// todo : add unit tests
+
 		public DateTime? Start { get; private set; }
 		public DateTime? End { get; private set; }
 
@@ -28,10 +32,12 @@ namespace Patterns
 			{
 				return (Start <= value) && (value <= End);
 			}
+			// todo : change implementation of semiopen interval
 			else if (Start.HasValue) // semiopen interval [Start, )
 			{
 				return Start <= value;
 			}
+			// todo : change implementation of semiopen interval
 			else // End.HasValue - semiopen interval (, End]
 			{
 				return value <= End;
