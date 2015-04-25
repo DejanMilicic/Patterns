@@ -16,13 +16,18 @@ namespace Patterns
 		/// </summary>
 		/// <param name="start"></param>
 		/// <param name="end"></param>
-		public Interval(T start, T end) : this(true, start, end, true)
+		public Interval(T start, T end) : this('[', start, end, ']')
 		{
 		}
 
-		public Interval(bool startClosed, T start, T end, bool endClosed)
+		public Interval(char startChar, T start, T end, char endChar)
 		{
 			if (start.CompareTo(end) > 0) throw new ArgumentException("Start is greater than End");
+			if (startChar != '[' && startChar != '(') throw new ArgumentException("startChar");
+			if (endChar != ']' && endChar != ')') throw new ArgumentException("endChar");
+
+			bool startClosed = startChar == '[';
+			bool endClosed = endChar == ']';
 
 			this.Start = new StartEdge(start, startClosed);
 			this.End = new EndEdge(end, endClosed);
