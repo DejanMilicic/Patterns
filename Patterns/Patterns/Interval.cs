@@ -33,6 +33,15 @@ namespace Patterns
 			return this.Start.CompareTo(point) <= 0 && this.End.CompareTo(point) >= 0;
 		}
 
+		public bool Contains(Interval<T> other)
+		{
+			if (other == null) throw new ArgumentNullException("other");
+
+			return this.Contains(other.Start) && this.Contains(other.End);
+		}
+
+		/***************/
+
 		private bool Contains(StartEdge leftEdge)
 		{
 			if (leftEdge.Value.CompareTo(this.Start.Value) < 0 || this.End.Value.CompareTo(leftEdge.Value) < 0)
@@ -77,13 +86,6 @@ namespace Patterns
 					return rightEdge.Closed && this.Start.Closed;
 				}
 			}
-		}
-
-		public bool Contains(Interval<T> other)
-		{
-			if (other == null) throw new ArgumentNullException("other");
-
-			return this.Contains(other.Start) && this.Contains(other.End);
 		}
 
 		public bool OverlapsWith(Interval<T> other)
