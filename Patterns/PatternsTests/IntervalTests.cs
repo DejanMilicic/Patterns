@@ -99,21 +99,61 @@ namespace PatternsTests
 			interval.Contains(5).ShouldBe(true);
 			interval.Contains(6).ShouldBe(false);
 
-			// intervals
-			// todo add open and semiopen intervals
+			// closed interval
 			interval.Contains(new Interval<int>('[', 0, 1, ']')).ShouldBe(false);
 			interval.Contains(new Interval<int>('[', 1, 2, ']')).ShouldBe(false);
 			interval.Contains(new Interval<int>('[', 1, 3, ']')).ShouldBe(false);
 			interval.Contains(new Interval<int>('[', 4, 6, ']')).ShouldBe(false);
 			interval.Contains(new Interval<int>('[', 5, 6, ']')).ShouldBe(false);
 			interval.Contains(new Interval<int>('[', 6, 7, ']')).ShouldBe(false);
-
-
-
+			interval.Contains(new Interval<int>('[', 2, 2, ']')).ShouldBe(true);
 			interval.Contains(new Interval<int>('[', 2, 4, ']')).ShouldBe(true);
 			interval.Contains(new Interval<int>('[', 3, 5, ']')).ShouldBe(true);
 			interval.Contains(new Interval<int>('[', 2, 5, ']')).ShouldBe(true);
 			interval.Contains(new Interval<int>('[', 3, 4, ']')).ShouldBe(true);
+			interval.Contains(new Interval<int>('[', 5, 5, ']')).ShouldBe(true);
+
+			//open interval
+			interval.Contains(new Interval<int>('(', 0, 1, ')')).ShouldBe(false);
+			interval.Contains(new Interval<int>('(', 1, 2, ')')).ShouldBe(false);
+			interval.Contains(new Interval<int>('(', 1, 3, ')')).ShouldBe(false);
+			interval.Contains(new Interval<int>('(', 4, 6, ')')).ShouldBe(false);
+			interval.Contains(new Interval<int>('(', 5, 6, ')')).ShouldBe(false);
+			interval.Contains(new Interval<int>('(', 6, 7, ')')).ShouldBe(false);
+			interval.Contains(new Interval<int>('[', 2, 2, ']')).ShouldBe(true);
+			interval.Contains(new Interval<int>('(', 2, 4, ')')).ShouldBe(true);
+			interval.Contains(new Interval<int>('(', 3, 5, ')')).ShouldBe(true);
+			interval.Contains(new Interval<int>('(', 2, 5, ')')).ShouldBe(true);
+			interval.Contains(new Interval<int>('(', 3, 4, ')')).ShouldBe(true);
+			interval.Contains(new Interval<int>('(', 5, 5, ')')).ShouldBe(false);
+
+			//semiopen left
+			interval.Contains(new Interval<int>('(', 0, 1, ']')).ShouldBe(false);
+			interval.Contains(new Interval<int>('(', 1, 2, ']')).ShouldBe(false);
+			interval.Contains(new Interval<int>('(', 1, 3, ']')).ShouldBe(false);
+			interval.Contains(new Interval<int>('(', 4, 6, ']')).ShouldBe(false);
+			interval.Contains(new Interval<int>('(', 5, 6, ']')).ShouldBe(false);
+			interval.Contains(new Interval<int>('(', 6, 7, ']')).ShouldBe(false);
+			interval.Contains(new Interval<int>('[', 2, 2, ']')).ShouldBe(true);
+			interval.Contains(new Interval<int>('(', 2, 4, ']')).ShouldBe(true);
+			interval.Contains(new Interval<int>('(', 3, 5, ']')).ShouldBe(true);
+			interval.Contains(new Interval<int>('(', 2, 5, ']')).ShouldBe(true);
+			interval.Contains(new Interval<int>('(', 3, 4, ']')).ShouldBe(true);
+			interval.Contains(new Interval<int>('(', 5, 5, ']')).ShouldBe(false); // empty set
+
+			//semiopen right
+			interval.Contains(new Interval<int>('[', 0, 1, ')')).ShouldBe(false);
+			interval.Contains(new Interval<int>('[', 1, 2, ')')).ShouldBe(false);
+			interval.Contains(new Interval<int>('[', 1, 3, ')')).ShouldBe(false);
+			interval.Contains(new Interval<int>('[', 4, 6, ')')).ShouldBe(false);
+			interval.Contains(new Interval<int>('[', 5, 6, ')')).ShouldBe(false);
+			interval.Contains(new Interval<int>('[', 6, 7, ')')).ShouldBe(false);
+			interval.Contains(new Interval<int>('[', 2, 2, ']')).ShouldBe(true);
+			interval.Contains(new Interval<int>('[', 2, 4, ')')).ShouldBe(true);
+			interval.Contains(new Interval<int>('[', 3, 5, ')')).ShouldBe(true);
+			interval.Contains(new Interval<int>('[', 2, 5, ')')).ShouldBe(true);
+			interval.Contains(new Interval<int>('[', 3, 4, ')')).ShouldBe(true);
+			interval.Contains(new Interval<int>('[', 5, 5, ')')).ShouldBe(true);
 		}										 
 												 
 		public void OpenIntervalContains()
@@ -122,8 +162,8 @@ namespace PatternsTests
 			Interval<int> interval = new Interval<int>('(', 2, 5, ')');
 
 			// points
-			interval.Contains(0).ShouldBe(false);
 			interval.Contains(1).ShouldBe(false);
+			interval.Contains(2).ShouldBe(false);
 			interval.Contains(3).ShouldBe(true);
 			interval.Contains(5).ShouldBe(false);
 			interval.Contains(6).ShouldBe(false);
